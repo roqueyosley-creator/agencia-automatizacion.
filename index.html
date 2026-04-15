@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTech | Automatización Inteligente</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; }
+        .glow { box-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
+    </style>
+</head>
+<body class="font-sans">
+
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Escala tu Negocio
+        </h1>
+        <p class="text-xl text-slate-400 max-w-2xl mb-8">
+            Eliminamos tus tareas repetitivas con flujos inteligentes. Ahorra tiempo, reduce errores y aumenta tus ingresos.
+        </p>
+        <a href="#contacto" class="bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-4 px-8 rounded-full transition glow">
+            Empezar Ahora
+        </a>
+    </header>
+
+    <section id="contacto" class="py-20 bg-slate-900/50">
+        <div class="max-w-xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center">¿Qué proceso quieres automatizar?</h2>
+            <form id="auto-form" class="space-y-4">
+                <input type="text" id="nombre" placeholder="Tu Nombre" class="w-full p-4 rounded bg-slate-800 border border-slate-700 focus:border-cyan-500 outline-none" required>
+                <input type="email" id="email" placeholder="Correo Electrónico" class="w-full p-4 rounded bg-slate-800 border border-slate-700 focus:border-cyan-500 outline-none" required>
+                <textarea id="problema" placeholder="Describe el proceso que te quita tiempo..." class="w-full p-4 h-32 rounded bg-slate-800 border border-slate-700 focus:border-cyan-500 outline-none" required></textarea>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded font-bold hover:opacity-90 transition">
+                    Enviar Propuesta
+                </button>
+            </form>
+            <p id="mensaje" class="mt-4 text-center hidden text-cyan-400">¡Recibido! Nos pondremos en contacto pronto.</p>
+        </div>
+    </section>
+
+    <script>
+        // Configuración de Supabase (Debes poner tus credenciales aquí)
+        const SUPABASE_URL = 'TU_URL_DE_SUPABASE';
+        const SUPABASE_KEY = 'TU_KEY_ANON_DE_SUPABASE';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const form = document.getElementById('auto-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const { data, error } = await supabase
+                .from('prospectos')
+                .insert([{ 
+                    nombre_cliente: document.getElementById('nombre').value, 
+                    email_contacto: document.getElementById('email').value, 
+                    problema_a_resolver: document.getElementById('problema').value 
+                }]);
+
+            if (!error) {
+                form.reset();
+                document.getElementById('mensaje').classList.remove('hidden');
+            } else {
+                alert('Error al enviar: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
