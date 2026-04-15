@@ -44,7 +44,7 @@
         // Configuración de Supabase (Debes poner tus credenciales aquí)
         const SUPABASE_URL = 'https://gnygsxggeogmjvvhsmgw.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdueWdzeGdnZW9nbWp2dmhzbWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjkyMDYsImV4cCI6MjA5MTI0NTIwNn0.Zr7QHzzsOXTPbQ-P4HDpgv0O2UQw6zKX1Nsd8LXgFTU';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+              supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const form = document.getElementById('auto-form');
         form.addEventListener('submit', async (e) => {
